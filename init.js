@@ -1,23 +1,24 @@
-var city = [];
-var selectedCity = Object.keys(data)[0]
-var cats = []
-var w = 0;
-var h = 0;
-var postfix = "";
-var colors = [
-    [141, 211, 199],
-    [255, 255, 179],
-    [190, 186, 218],
-    [251, 128, 114],
-    [128, 177, 211],
-    [253, 180, 98],
-    [179, 222, 105],
-    [252, 205, 229],
-    [217, 217, 217],
-    [188, 128, 189]
-];
-var objects = [];
-var types = []
+var city = [], 
+    selectedCity = Object.keys(data)[0], 
+    cats = [], 
+    w = 0, 
+    h = 0, 
+    postfix = "", 
+    colors = [
+        [141, 211, 199],
+        [255, 255, 179],
+        [190, 186, 218],
+        [251, 128, 114],
+        [128, 177, 211],
+        [253, 180, 98],
+        [179, 222, 105],
+        [252, 205, 229],
+        [217, 217, 217],
+        [188, 128, 189]
+    ], 
+    objects = [], 
+    types = [];
+
 Object.size = function(obj) {
     var size = 0,
         key;
@@ -26,11 +27,12 @@ Object.size = function(obj) {
     }
     return size;
 };
-var dataLength = Object.size(data);
-var totalAmount = [];
-var theg1 = [];
-var theg2 = [];
-var theg = {};
+var dataLength = Object.size(data), 
+    totalAmount = [], 
+    theg1 = [], 
+    theg2 = [], 
+    theg = {};
+
 jQuery(function($) {
     cats = Object.keys(data[Object.keys(data)[0]][Object.keys(data[Object.keys(data)[0]])[0]]);
     types = Object.keys(data[Object.keys(data)[0]]);
@@ -56,8 +58,6 @@ jQuery(function($) {
     }, 20);
 });
 
-
-
 function setup() {
     createCanvas(900, 600);
     smooth();
@@ -65,7 +65,7 @@ function setup() {
         jQuery("#selector").append("<option>" + Object.keys(data)[i] + "</option>");
         city[i] = new City(data[Object.keys(data)[i]], i);
         var amount = 0;
-        for (j in types) {
+        for (var j in types) {
             amount += data[objects[i]][types[j]][cats[0]];
         }
         totalAmount.push(amount);
@@ -84,8 +84,6 @@ function draw() {
     }
 }
 
-
-
 function City(d, num) {
     this.name = d.name;
     this.leftSide = [];
@@ -96,13 +94,11 @@ function City(d, num) {
     }
 }
 
-
 City.prototype.run = function() {
     this.displayConnects(this.rightSide, this.leftSide);
     this.displayRects(this.rightSide, w / 50, types[0]);
     this.displayRects(this.leftSide, w - (w / 50 + w / 4), types[1]);
-}
-
+};
 
 City.prototype.displayRects = function(group, lefter, g) {
     var counter = 0;
@@ -118,11 +114,11 @@ City.prototype.displayRects = function(group, lefter, g) {
         text(group[i] + postfix + " " + types[i], lefter + (w / 8), counter + theg[g][i] / 3, w / 4, 50);
         counter += theg[g][i];
     }
-}
+};
 
 City.prototype.displayConnects = function(p, c) {
-    var counter = 0;
-    var counter2 = 0;
+    var counter = 0,
+        counter2 = 0;
     for (i = 0; i < Object.size(types); i++) {
         theg1[i] = lerp(theg1[i], mult(p[i]), 0.1);
         theg2[i] = lerp(theg2[i], mult(c[i]), 0.1);
@@ -132,14 +128,14 @@ City.prototype.displayConnects = function(p, c) {
         counter2 += theg2[i];
     }
 
-}
+};
 
 function sum(arr) {
     var total = 0;
-    for (i in arr) {
+    for (var i in arr) {
         total += i;
     }
-    return total
+    return total;
 }
 
 function mult(num) {
